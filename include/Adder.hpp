@@ -7,18 +7,31 @@
 #define ADDER_HPP
 
 #include <vector>
+#include <set>
+
 class Adder {
 public:
     /** Default constructor */
-    Adder();
+    Adder(){};
     /** Default destructor */
-    virtual ~Adder();
+    virtual ~Adder(){};
 
     double Add(const double &a, const double &b) {
         return (a+b);
     }
 
     std::vector<double> AddArray(const std::vector<double> a,
-                                 const std::vector<double> b){};
+                                 const std::vector<double> b) {
+        std::vector<double> temp;
+        for(unsigned int i = 0; i < a.size(); i++)
+            temp.push_back(a.at(i)+b.at(i));
+        return(temp);
+    };
+
+    std::set<double> AddSet(const std::set<double> a,
+                            const std::set<double> b) {
+        std::set<double> temp;
+        return(temp);
+    }
 };
 #endif // ADDER_HPP
