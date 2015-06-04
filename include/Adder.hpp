@@ -27,11 +27,5 @@ public:
             temp.push_back(a.at(i)+b.at(i));
         return(temp);
     };
-
-    std::set<double> AddSet(const std::set<double> a,
-                            const std::set<double> b) {
-        std::set<double> temp;
-        return(temp);
-    }
 };
 #endif // ADDER_HPP
