@@ -19,7 +19,7 @@ matrix::Matrix<T>::Matrix()
 template < class T >
 matrix::Matrix<T>::~Matrix()
 {
-    std::cout << "Destroying a matrix\n"; 
+    // std::cout << "Destroying a matrix\n"; 
 }
 
 template <class T>
@@ -57,38 +57,67 @@ void matrix::Matrix<T>::print()
 }
 
 
-// template <class T>
-// void matrix::Matrix<T>::add( const Matrix <T> & rhs )
-// {
-//     if ( width !=  (rhs.get_width()) )
-//     {
-//         std::cerr << "Cannot add matrices of differing widths\n";
-//         return;
-//     }
-//     if ( height != (rhs.get_height()) )
-//     {
-//         std::cerr << "Cannot add matrices of differing height\n";
-//         return;
-//     }
+template <typename T>
+const unsigned int matrix::Matrix<T>::get_height() const 
+{
+    return height;
+}
+
+template <typename T>
+const unsigned int matrix::Matrix<T>::get_width() const 
+{
+    return width;
+}
+
+template <typename T>
+typename std::vector<std::vector<T>>::iterator matrix::Matrix<T>::begin()
+{
+    return data.begin();
+}
+
+template <class T>
+void matrix::Matrix<T>::add( Matrix <T> & rhs )
+{
+    if ( width !=  (rhs.get_width()) )
+    {
+        std::cerr << "Cannot add matrices of differing widths\n";
+        return;
+    }
+    if ( height != (rhs.get_height()) )
+    {
+        std::cerr << "Cannot add matrices of differing height\n";
+        return;
+    }
     
     
-//     class std::vector<std::vector<T>>::iterator iv1 = data.begin();
-//     class std::vector<std::vector<T>>::iterator iv2 = rhs.begin();
-//     while ( iv1 != data.end() )
-//     {
-//         typename std::vector<std::vector<T>>::iterator jv1 = *(iv1).begin();
-//         typename std::vector<std::vector<T>>::iterator jv2 = *(jv1).begin();
-//         while ( jv1 != *iv1.end())
-//         {
-//             *jv1 = add(*jv1, *jv2);
-//             ++jv1;
-//             ++jv2;
-//         }
-//         std::cout << "\n";
-//         ++iv1;
-//         ++iv2;
-//     }
-// }
+    typename std::vector<std::vector<T>>::iterator iv1 = data.begin();
+    typename std::vector<std::vector<T>>::iterator iv2 = rhs.begin();
+    while ( iv1 != data.end() )
+    {
+        typename std::vector<T>::iterator jv1 = (*(iv1)).begin();
+        typename std::vector<T>::iterator jv2 = (*(iv2)).begin();
+        while ( jv1 != (*iv1).end())
+        {
+            *jv1 = add(*jv1, *jv2);
+            ++jv1;
+            ++jv2;
+        }
+        ++iv1;
+        ++iv2;
+    }
+}
+
+template <class T>
+void matrix::Matrix<T>::add( std::vector< matrix::Matrix<T> > &list )
+{
+    int i = 0;
+    while ( i < list.size() )
+    {
+        add(list[i]);
+        ++i;
+    }
+}
+
 
 template <class T>
 void matrix::Matrix<T>::resize( const unsigned int x, const unsigned int y)
@@ -112,52 +141,37 @@ void matrix::Matrix<T>::resize( const unsigned int x, const unsigned int y)
     }
 }
 
-// template <class T>
-// void matrix::Matrix<T>::insert(const unsigned int x , const unsigned int y, const T value)
-// {
-//     if ( x > width - 1)
-//     {
-//         std::cerr << "Trying to add a value to an out of bounds x\n";
-//         return;
-//     }
-//     if ( y > height - 1)
-//     {
-//         std::cerr << "Trying to add a value to and out of bound y\n";
-//         return;
-//     }
-//     data[x][y] = value;
-// }
+template <class T>
+void matrix::Matrix<T>::insert(const unsigned int x , const unsigned int y, const T value)
+{
+    if ( x > width - 1)
+    {
+        std::cerr << "Trying to add a value to an out of bounds x\n";
+        return;
+    }
+    if ( y > height - 1)
+    {
+        std::cerr << "Trying to add a value to and out of bound y\n";
+        return;
+    }
+    data[x][y] = value;
+}
 
-// // template <class T>
-// // const T matrix::Matrix<T>::get(const unsigned int x, const unsigned int y) const
-// // {
-// //     if ( x >= width )
-// //     {
-// //         std::cerr << "Attempting to get value with an out of bounds x\n";
-// //         return;
-// //     }
-// //     if ( y >= height)
-// //     {
-// //         std::cerr << "Attempting to get value with an out of bounds y\n";
-// //         return;
-// //     }
-// //     return data[x][y];
-// // }
-
-
-
-// template <class T>
-// const matrix::Matrix<T> matrix::add( const matrix::Matrix<T> &a, const matrix::Matrix<T> &b)
-// {
-//     matrix::Matrix<T> ret;
-    
-//     ret.resize(a.get_width(), a.get_height());
-    
-//     ret.add(a);
-//     ret.add(b);
-    
-//     return ret;
-// }
+template <class T>
+const T matrix::Matrix<T>::get(const unsigned int x, const unsigned int y) const
+{
+    // if ( x >= width )
+    // {
+    //     std::cerr << "Attempting to get value with an out of bounds x\n";
+    //     return;
+    // }
+    // if ( y >= height)
+    // {
+    //     std::cerr << "Attempting to get value with an out of bounds y\n";
+    //     return;
+    // }
+    return data[x][y];
+}
 
 template <class T>
 void matrix::Matrix<T>::fill( const T val )
@@ -171,11 +185,6 @@ void matrix::Matrix<T>::fill( const T val )
 }
 
 
+
 template class matrix::Matrix<double>;
-
-
-
-
-
-
-
+template class matrix::Matrix<int>;

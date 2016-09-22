@@ -39,13 +39,14 @@ namespace matrix
         // getters
         const unsigned int get_height() const;
         const unsigned int get_width() const;
-        // typename std::vector<std::vector<T>>::iterator begin() const;
+        typename std::vector<std::vector<T>>::iterator begin();
         
         // fill THIS with a value
         void fill(const T);
         
         // add another matrix to THIS
-        void add( const Matrix<T>& );
+        void add( Matrix<T>& );
+        void add( std::vector<Matrix<T>>& );
         
         // resize THIS to x,y dimensions
         void resize(const unsigned int, const unsigned int);
@@ -60,15 +61,8 @@ namespace matrix
         const T get(const unsigned int, const unsigned int) const;
         
     };
-    
-    
-    template <typename T>
-    const Matrix<T> add(const Matrix<T>&, const Matrix<T>&); 
-
-
-    // Matrix<double>;
-
 }
+
 
 
 
