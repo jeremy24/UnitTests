@@ -13,12 +13,14 @@
 
 using namespace std;
 
-TEST_FIXTURE(Adder, TestingAdding) {
+typedef Adder<double> AdderDouble;
+
+TEST_FIXTURE(AdderDouble, TestingAdding) {
     double result = Add(1.0, 3.0);
     CHECK(result == 4.0);
 }
 
-TEST_FIXTURE(Adder, TestingVectorAddition) {
+TEST_FIXTURE(AdderDouble, TestingVectorAddition) {
     vector<double> a,b, expected;
 
     a.push_back(1); a.push_back(2); a.push_back(3);

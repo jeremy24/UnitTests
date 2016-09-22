@@ -9,6 +9,8 @@
 #include <vector>
 #include <set>
 
+
+template<class T>
 class Adder {
 public:
     /** Default constructor */
@@ -20,9 +22,10 @@ public:
         return (a+b);
     }
 
-    std::vector<double> AddArray(const std::vector<double> a,
-                                 const std::vector<double> b) {
-        std::vector<double> temp;
+    template <T>
+    std::vector<T> AddArray(const std::vector<T> &a,
+                            const std::vector<T> &b) {
+        std::vector<T> temp;
         for(unsigned int i = 0; i < a.size(); i++)
             temp.push_back(a.at(i)+b.at(i));
         return(temp);
