@@ -3,8 +3,8 @@
  *  \author
  *  \date
 */
-#include <UnitTest++.h>
+#include <UnitTest++/UnitTest++.h>
 
 int main(int argv, char* argc[]) {
-    return(UnitTest::RunAllTests());
+    //return(UnitTest::RunAllTests());
 }
