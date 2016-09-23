@@ -7,8 +7,7 @@
 using namespace matrix;
 
 
-template class matrix::Matrix<double>;
-template class matrix::Matrix<int>;
+
 
 
 template <class T>
@@ -117,9 +116,13 @@ void matrix::Matrix<T>::insert(const unsigned int x , const unsigned int y, cons
 }
 
 
+template <class T>
+std::vector<std::vector<T>> matrix::Matrix<T>::get_data() const
+{
+    return data;
+}
 
 
-
-
-
+template class matrix::Matrix<double>;
+template class matrix::Matrix<int>;
 

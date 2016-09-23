@@ -29,6 +29,7 @@ namespace matrix
         const unsigned int get_height() const;
         const unsigned int get_width() const;
         T get_data(const unsigned int, const unsigned int) const;
+        std::vector<std::vector<T>> get_data() const;
         
         // print
         void print() const;

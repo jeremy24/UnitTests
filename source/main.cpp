@@ -6,6 +6,7 @@
 #include <UnitTest++/UnitTest++.h>
 
 #include "matrix.hpp"
+#include "int_matrix.hpp"
 
 #include <iostream>
 #include <cstdlib>
@@ -15,7 +16,7 @@ using namespace std;
 
 int main(int argv, char* argc[]) {
     
-    //matrix::Matrix<double> mat1;
+    matrix::Int_Matrix mat1;
     
     srand(time(NULL));    
     
