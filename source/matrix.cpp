@@ -4,119 +4,78 @@
 #include <iostream>
 #include <algorithm>
 
-// using namespace matrix;
+using namespace matrix;
 
 
+template class matrix::Matrix<double>;
+template class matrix::Matrix<int>;
 
 
-template <class T> 
-matrix::Matrix<T>::Matrix()
+template <class T>
+Matrix<T>::Matrix()
 {
     height = 0;
     width = 0;
 }
 
-template < class T >
-matrix::Matrix<T>::~Matrix()
+template <class T>
+Matrix<T>::~Matrix()
 {
-    // std::cout << "Destroying a matrix\n"; 
+    // do nothing
 }
 
 template <class T>
-const T matrix::Matrix<T>::add(const T a, const T b)
+void Matrix<T>::print() const
 {
-    return a + b;
-}
-
-template < class T >
-void matrix::Matrix<T>::print()
-{
-    std::cout << "Matrix:\nHeight: " 
-              << height 
-              << "\nWidth: " 
-              << width 
-              << "\nReal Height: "
-              << (*(data.begin())).size()
-              << "\nReal Width: "
-              << (*(data.begin())).size()
-              << "\n";
-              
-    class std::vector<std::vector<T>>::iterator iv = data.begin();
-
-    while ( iv != data.end() )
+    std::cout << "Matrix::\n"
+              << "Height: " << height << "\n"
+              << "Width: " << width << "\n";
+    for( int i = 0 ; i < data.size() ; ++i )
     {
-        typename std::vector<T>::iterator jv = (*iv).begin();
-        while ( jv != (*iv).end() )
+        for ( int j = 0 ; j < data[0].size() ; ++j )
         {
-            std::cout << *jv << " ";
-            ++jv;
+            std::cout << data[i][j] << " ";
         }
         std::cout << "\n";
-        ++iv;
     }
 }
 
-
 template <typename T>
-const unsigned int matrix::Matrix<T>::get_height() const 
+T Matrix<T>::get_data(const unsigned int a, const unsigned int b) const
 {
-    return height;
-}
-
-template <typename T>
-const unsigned int matrix::Matrix<T>::get_width() const 
-{
-    return width;
-}
-
-template <typename T>
-typename std::vector<std::vector<T>>::iterator matrix::Matrix<T>::begin()
-{
-    return data.begin();
+    return data[a][b];
 }
 
 template <class T>
-void matrix::Matrix<T>::add( Matrix <T> & rhs )
+const unsigned int Matrix<T>::get_height() const
 {
-    if ( width !=  (rhs.get_width()) )
+    const unsigned int a = height;
+    return a;
+}
+
+template <class T>
+const unsigned int Matrix<T>::get_width() const
+{
+    const unsigned int a = width;
+    return a;
+}
+
+template <class T>
+Matrix<T> Matrix<T>::transpose() const 
+{
+    Matrix<T> ret;
+    ret.resize( height, width );
+    for ( int i = 0 ; i < width ; ++i )
     {
-        std::cerr << "Cannot add matrices of differing widths\n";
-        return;
-    }
-    if ( height != (rhs.get_height()) )
-    {
-        std::cerr << "Cannot add matrices of differing height\n";
-        return;
-    }
-    
-    
-    typename std::vector<std::vector<T>>::iterator iv1 = data.begin();
-    typename std::vector<std::vector<T>>::iterator iv2 = rhs.begin();
-    while ( iv1 != data.end() )
-    {
-        typename std::vector<T>::iterator jv1 = (*(iv1)).begin();
-        typename std::vector<T>::iterator jv2 = (*(iv2)).begin();
-        while ( jv1 != (*iv1).end())
+        for ( int j = 0 ; j < height ; ++j )
         {
-            *jv1 = add(*jv1, *jv2);
-            ++jv1;
-            ++jv2;
+            ret.insert(j, i, data[i][j]);
         }
-        ++iv1;
-        ++iv2;
     }
+    return ret;
 }
 
-template <class T>
-void matrix::Matrix<T>::add( std::vector< matrix::Matrix<T> > &list )
-{
-    int i = 0;
-    while ( i < list.size() )
-    {
-        add(list[i]);
-        ++i;
-    }
-}
+
 
 
 template <class T>
@@ -157,34 +116,10 @@ void matrix::Matrix<T>::insert(const unsigned int x , const unsigned int y, cons
     data[x][y] = value;
 }
 
-template <class T>
-const T matrix::Matrix<T>::get(const unsigned int x, const unsigned int y) const
-{
-    // if ( x >= width )
-    // {
-    //     std::cerr << "Attempting to get value with an out of bounds x\n";
-    //     return;
-    // }
-    // if ( y >= height)
-    // {
-    //     std::cerr << "Attempting to get value with an out of bounds y\n";
-    //     return;
-    // }
-    return data[x][y];
-}
-
-template <class T>
-void matrix::Matrix<T>::fill( const T val )
-{
-    class std::vector<std::vector<T>>::iterator iv = data.begin();
-    while ( iv != data.end() )
-    {
-        std::fill((*iv).begin(), (*iv).end(), val);
-        ++iv;
-    }
-}
 
 
 
-template class matrix::Matrix<double>;
-template class matrix::Matrix<int>;
+
+
+
+
